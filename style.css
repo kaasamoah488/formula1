@@ -1,5 +1,5 @@
 body{
-   background-image: url('/images/logo2.png');
+   background-image: url('/Images/logo2.png');
    background-repeat: no-repeat;
    background-position: center;
    background-attachment: fixed;
@@ -9,21 +9,103 @@ body{
 h1{
    color: white;
    text-align: center;
-   font-family: 'Arial Black', sans-serif;
+   font-family: 'Courier New', Courier, monospace;
    font-size: 40px;
    text-shadow: 2px 2px 4px #920202;}
 
 p{
-   color: rgb(7, 7, 7);
+   color: rgb(255, 255, 255);
    text-align: left;
    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
    font-size: 20px;
    }
 
 h2{
-   color: rgba(190, 13, 13, 0.9);
+   color: rgba(253, 253, 253, 0.9);
     text-align: center;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     text-decoration: underline;
-    font-size: 30px;
+    font-size: 60px;
+    text-shadow: rgb(135, 11, 11);
     }
+/* Container sizing */
+.team-container {
+    position: relative;
+    width: 600px; /* Wider to accommodate the shift */
+    height: 350px;
+    margin: 670px auto;
+    margin-top: 290px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: -moz-hidden-unscrollable;
+}
+
+/* 1. The Main Team Image (The Car) */
+.team-front {
+    position: relative;
+    z-index: 3;
+    width: 450px;
+    transition: all 0.4s ease-in-out;
+    height: auto;
+}
+.driver-info {
+    width: 500px;
+    color: azure;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+/* 2. The Drivers (Partially visible & smaller by default) */
+.driver {
+    position: absolute;
+    z-index: 2;
+    width: 200px;
+    opacity: 0.6; /* Partially visible as requested */
+    transform: scale(0.8); /* Smaller while "behind" */
+    transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Initial positioning (Peeking from behind) */
+.left-slide { transform: translateX(0px) scale(0); }
+.right-slide { transform: translateX(0px) scale(0); }
+
+/* --- THE HOVER TRAP --- */
+
+/* Move & Shrink the Front Image to the Left */
+.team-container:hover .team-front {
+    transform: translateX(0px) scale(0.7);
+    z-index: 1; /* Moves behind drivers on hover if you want */
+}
+
+/* Expand and Bring Drivers to the Right Side */
+.team-container:hover .left-slide {
+    transform: translateX(-450px) scale(1); /* Moves to the center-right */
+    opacity: 1;
+    z-index: 4;
+}
+
+.team-container:hover .right-slide {
+    transform: translateX(290px) scale(1); /* Moves to the far right */
+    opacity: 1;
+    z-index: 4;
+}
+/* Responsive adjustments for Mobile/Tablets */
+@media (max-width: 768px) {
+    .team-container {
+        width: 100%; /* Take up full width */
+        margin-top: 200px; /* Adjust spacing as needed */
+    }
+
+    .team-front {
+        width: 250px; /* Shrink the car for smaller screens */
+    }
+
+    /* Stack drivers vertically instead of side-to-side */
+    .team-container:hover .left-slide {
+        transform: translate(0, 220px) scale(0.9); /* Moves straight down */
+    }
+
+    .team-container:hover .right-slide {
+        transform: translate(0, 480px) scale(0.9); /* Moves further down to stack below the first driver */
+    }
+}
